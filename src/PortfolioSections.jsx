@@ -39,11 +39,10 @@ function CaseMedia({ item, onPreview }) {
         <div className="caseFrame">
           {isVideo ? (
             <video
-              src={item.src}
               poster={item.poster}
               muted
               playsInline
-              preload="metadata"
+              preload="none"
               controlsList="nodownload noplaybackrate"
               disablePictureInPicture
               onContextMenu={(event) => event.preventDefault()}
@@ -62,6 +61,51 @@ function CaseMedia({ item, onPreview }) {
         </div>
       </button>
     </GlowCard>
+  );
+}
+
+function ProtectedVideo({ item }) {
+  const videoRef = useRef(null);
+  const [isPlaying, setIsPlaying] = useState(true);
+
+  const togglePlayback = () => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (video.paused) {
+      video.play();
+      setIsPlaying(true);
+      return;
+    }
+
+    video.pause();
+    setIsPlaying(false);
+  };
+
+  return (
+    <div className="lightboxVideoFrame">
+      <video
+        ref={videoRef}
+        className="lightboxVideo"
+        src={item.src}
+        autoPlay
+        playsInline
+        controls={false}
+        controlsList="nodownload noplaybackrate"
+        disablePictureInPicture
+        onPlay={() => setIsPlaying(true)}
+        onPause={() => setIsPlaying(false)}
+        onContextMenu={(event) => event.preventDefault()}
+      />
+      <button
+        className={`lightboxVideoToggle ${isPlaying ? 'isPlaying' : ''}`}
+        type="button"
+        onClick={togglePlayback}
+        aria-label={isPlaying ? '暂停视频' : '播放视频'}
+      >
+        {isPlaying ? 'PAUSE' : 'PLAY'}
+      </button>
+    </div>
   );
 }
 
@@ -91,18 +135,7 @@ function MediaLightbox({ item, isClosing, onClose }) {
         onClick={(event) => event.stopPropagation()}
       >
         {isVideo ? (
-          <div className="lightboxVideoFrame">
-            <video
-              className="lightboxVideo"
-              src={item.src}
-              controls
-              autoPlay
-              playsInline
-              controlsList="nodownload noplaybackrate"
-              disablePictureInPicture
-              onContextMenu={(event) => event.preventDefault()}
-            />
-          </div>
+          <ProtectedVideo item={item} />
         ) : (
           <img src={item.src} alt={item.title} />
         )}
