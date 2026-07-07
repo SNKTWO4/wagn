@@ -107,9 +107,12 @@ video, img { display: block; }
 
 .hero {
   position: relative;
+  display: grid;
+  place-items: center;
   min-height: 100dvh;
   overflow: hidden;
   isolation: isolate;
+  padding: clamp(104px, 9vw, 150px) var(--pad) clamp(40px, 5vw, 72px);
   background: #050505;
 }
 
@@ -120,6 +123,9 @@ video, img { display: block; }
   width: 100%;
   height: 100%;
   object-fit: cover;
+  -webkit-touch-callout: none;
+  pointer-events: none;
+  user-select: none;
 }
 
 .heroVeil {
@@ -127,30 +133,39 @@ video, img { display: block; }
   inset: 0;
   z-index: -1;
   background:
-    linear-gradient(90deg, rgba(10, 10, 10, 0.88), rgba(10, 10, 10, 0.24) 48%, rgba(10, 10, 10, 0.38)),
-    linear-gradient(180deg, rgba(10, 10, 10, 0.08), rgba(10, 10, 10, 0.76));
+    radial-gradient(circle at 52% 44%, rgba(245, 245, 243, 0.12), transparent 32%),
+    linear-gradient(180deg, rgba(10, 10, 10, 0.04), rgba(10, 10, 10, 0.74)),
+    linear-gradient(90deg, rgba(10, 10, 10, 0.45), rgba(10, 10, 10, 0.12) 48%, rgba(10, 10, 10, 0.5));
 }
 
 .heroSplit {
   position: relative;
   display: grid;
   grid-template-columns: 0.43fr 0.57fr;
-  min-height: 100dvh;
+  width: min(1320px, calc(100vw - var(--pad) * 2));
+  min-height: min(700px, calc(100dvh - 180px));
+  overflow: hidden;
+  border: 1px solid rgba(245, 245, 243, 0.16);
+  border-radius: 2px;
+  background: rgba(245, 245, 243, 0.045);
+  box-shadow: 0 34px 120px rgba(0, 0, 0, 0.46);
 }
 
 .heroGlass, .heroImagePanel {
   position: relative;
-  min-height: 100dvh;
-  padding: clamp(118px, 12vw, 168px) clamp(26px, 4vw, 76px) clamp(42px, 6vw, 86px);
+  min-height: min(700px, calc(100dvh - 180px));
+  padding: clamp(38px, 4vw, 72px);
   overflow: hidden;
 }
 
 .heroGlass {
   display: grid;
   align-content: end;
-  background: rgba(245, 245, 243, 0.12);
+  background:
+    linear-gradient(180deg, rgba(245, 245, 243, 0.18), rgba(245, 245, 243, 0.075)),
+    rgba(10, 10, 10, 0.22);
   border-right: 1px solid rgba(245, 245, 243, 0.16);
-  backdrop-filter: blur(28px) saturate(0.82);
+  backdrop-filter: blur(32px) saturate(0.76);
 }
 
 .heroImagePanel {
@@ -162,8 +177,8 @@ video, img { display: block; }
 }
 .heroNavHint {
   position: absolute;
-  top: 36px;
-  left: clamp(26px, 4vw, 76px);
+  top: clamp(28px, 3vw, 46px);
+  left: clamp(28px, 3vw, 56px);
   color: rgba(245, 245, 243, 0.78);
   font-size: 11px;
   font-weight: 800;
@@ -174,9 +189,9 @@ video, img { display: block; }
   display: block;
   margin: 0;
   color: rgba(245, 245, 243, 0.98);
-  font-size: clamp(78px, 15vw, 220px);
+  font-size: clamp(74px, 12vw, 178px);
   font-weight: 300;
-  line-height: 0.78;
+  line-height: 0.82;
   letter-spacing: 0.08em;
   text-shadow: 0 0 34px rgba(245, 245, 243, 0.18), 0 20px 54px rgba(0, 0, 0, 0.4);
 }
@@ -188,9 +203,9 @@ video, img { display: block; }
 }
 
 .heroWordMuted {
-  color: rgba(245, 245, 243, 0.28);
+  color: rgba(245, 245, 243, 0.34);
   max-width: 100%;
-  font-size: clamp(64px, 10vw, 148px);
+  font-size: clamp(74px, 8vw, 126px);
   line-height: 0.88;
   letter-spacing: 0.02em;
   text-shadow: 0 0 28px rgba(245, 245, 243, 0.14);
@@ -252,6 +267,15 @@ video, img { display: block; }
   justify-self: center;
   margin-top: 0;
   text-align: center;
+}
+
+.hero .heroNavHint,
+.hero .heroWord,
+.hero .heroLabel,
+.hero .heroCopy,
+.hero .heroLink {
+  visibility: visible !important;
+  opacity: 1 !important;
 }
 
 .sectionShell {
@@ -1377,24 +1401,26 @@ video, img { display: block; }
 
   .hero {
     min-height: 100dvh;
+    padding: 96px 16px 34px;
   }
 
   .heroSplit {
     grid-template-columns: 1fr;
-    min-height: 100dvh;
+    width: 100%;
+    min-height: calc(100dvh - 130px);
   }
 
   .heroGlass,
   .heroImagePanel {
     grid-area: 1 / 1;
-    min-height: 100dvh;
-    padding: clamp(96px, 18vw, 132px) clamp(16px, 5vw, 34px) clamp(34px, 9vw, 62px);
+    min-height: calc(100dvh - 130px);
+    padding: clamp(26px, 7vw, 38px);
   }
 
   .heroGlass {
     z-index: 2;
     align-content: end;
-    padding-bottom: clamp(96px, 25vw, 150px);
+    padding-bottom: clamp(34px, 10vw, 58px);
     border-right: 0;
     background:
       linear-gradient(180deg, rgba(10, 10, 10, 0.08), rgba(10, 10, 10, 0.66) 54%, rgba(10, 10, 10, 0.9)),
@@ -1406,20 +1432,21 @@ video, img { display: block; }
     z-index: 1;
     pointer-events: none;
     justify-items: center;
-    align-content: center;
-    padding-bottom: clamp(34px, 9vw, 62px);
+    align-content: start;
+    padding-bottom: clamp(92px, 24vw, 140px);
+    padding-top: clamp(120px, 28vh, 210px);
     text-align: center;
   }
 
   .heroWord {
-    font-size: clamp(60px, 19vw, 112px);
+    font-size: clamp(58px, 16vw, 92px);
     line-height: 0.84;
     letter-spacing: 0.04em;
   }
 
   .heroWordMuted {
-    color: rgba(245, 245, 243, 0.5);
-    font-size: clamp(54px, 16vw, 88px);
+    color: rgba(245, 245, 243, 0.56);
+    font-size: clamp(56px, 18vw, 94px);
     line-height: 0.92;
     letter-spacing: 0.01em;
   }
@@ -1459,12 +1486,13 @@ video, img { display: block; }
     justify-self: center;
     max-width: 26ch;
     line-height: 1.55;
+    display: none;
   }
 
   .heroImagePanel .heroWord {
     max-width: 100%;
-    color: rgba(245, 245, 243, 0.14);
-    font-size: clamp(44px, 13vw, 64px);
+    color: rgba(245, 245, 243, 0.13);
+    font-size: clamp(42px, 12vw, 60px);
     line-height: 0.86;
   }
 
