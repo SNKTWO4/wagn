@@ -964,7 +964,16 @@ video, img { display: block; }
   height: 100%;
   min-height: inherit;
   overflow: hidden;
+  width: 100%;
+  padding: 0;
+  border: 0;
   border-radius: 16px;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  background: transparent;
+  cursor: pointer;
+  appearance: none;
 }
 
 .caseFrame {

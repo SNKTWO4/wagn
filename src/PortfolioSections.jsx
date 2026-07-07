@@ -35,10 +35,19 @@ function CaseMedia({ item, onPreview }) {
 
   return (
     <GlowCard className={`${className} revealBlock`}>
-      <a className="caseMediaLink" href={item.src} onClick={handleClick} aria-label={`查看 ${item.title}`}>
+      <button className="caseMediaLink" type="button" onClick={handleClick} aria-label={`查看 ${item.title}`}>
         <div className="caseFrame">
           {isVideo ? (
-            <video src={item.src} poster={item.poster} muted playsInline preload="auto" />
+            <video
+              src={item.src}
+              poster={item.poster}
+              muted
+              playsInline
+              preload="metadata"
+              controlsList="nodownload noplaybackrate"
+              disablePictureInPicture
+              onContextMenu={(event) => event.preventDefault()}
+            />
           ) : (
             <img src={item.src} alt={item.title} />
           )}
@@ -51,7 +60,7 @@ function CaseMedia({ item, onPreview }) {
           <strong>{item.title}</strong>
           <p>{item.meta}</p>
         </div>
-      </a>
+      </button>
     </GlowCard>
   );
 }
@@ -83,7 +92,16 @@ function MediaLightbox({ item, isClosing, onClose }) {
       >
         {isVideo ? (
           <div className="lightboxVideoFrame">
-            <video className="lightboxVideo" src={item.src} controls autoPlay playsInline />
+            <video
+              className="lightboxVideo"
+              src={item.src}
+              controls
+              autoPlay
+              playsInline
+              controlsList="nodownload noplaybackrate"
+              disablePictureInPicture
+              onContextMenu={(event) => event.preventDefault()}
+            />
           </div>
         ) : (
           <img src={item.src} alt={item.title} />

@@ -70,7 +70,17 @@ const navItems = [
 function Hero() {
   return (
     <section className="hero" id="home">
-      <video className="heroVideo" src="media/hero-bg.mp4" autoPlay muted loop playsInline />
+      <video
+        className="heroVideo"
+        src="media/hero-bg.mp4"
+        autoPlay
+        muted
+        loop
+        playsInline
+        controlsList="nodownload"
+        disablePictureInPicture
+        onContextMenu={(event) => event.preventDefault()}
+      />
       <div className="heroVeil" />
       <div className="heroSplit">
         <div className="heroGlass">
@@ -191,7 +201,16 @@ function Experience() {
 function Contact() {
   return (
     <section className="contactSection" id="contact">
-      <video src="media/closing-bg.mp4" autoPlay muted loop playsInline />
+      <video
+        src="media/closing-bg.mp4"
+        autoPlay
+        muted
+        loop
+        playsInline
+        controlsList="nodownload"
+        disablePictureInPicture
+        onContextMenu={(event) => event.preventDefault()}
+      />
       <div className="contactVeil" />
       <div className="contactHero">
         <p className="contactBadge">Available for brand film / founder IP</p>
