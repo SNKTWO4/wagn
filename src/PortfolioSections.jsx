@@ -103,7 +103,7 @@ function ProtectedVideo({ item }) {
         onClick={togglePlayback}
         aria-label={isPlaying ? '暂停视频' : '播放视频'}
       >
-        {isPlaying ? 'PAUSE' : 'PLAY'}
+        PLAY
       </button>
     </div>
   );
