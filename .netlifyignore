@@ -1,0 +1,6 @@
+dist
+node_modules
+_asset_extract
+.agents
+.codex
+05-logs

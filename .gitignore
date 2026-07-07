@@ -1,0 +1,14 @@
+node_modules/
+dist/
+netlify-static-upload/
+_asset_extract/
+.agents/
+.codex/
+05-logs/
+
+public/media/founder-ip-1.mp4
+public/media/founder-ip-2.mp4
+public/media/founder-ip-3.mp4
+public/media/founder-ip-4.mp4
+public/media/promo-huayi.m4v
+public/media/promo-tea.m4v
