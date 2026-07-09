@@ -27,6 +27,20 @@ const caseDecor = {
 function CaseMedia({ item, onPreview }) {
   const isVideo = item.type === 'video';
   const className = `caseMedia ${item.portrait ? 'isPortrait' : ''}`;
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return undefined;
+
+    const showFirstFrame = () => {
+      if (video.currentTime > 0.02) return;
+      video.currentTime = 0.001;
+    };
+
+    video.addEventListener('loadeddata', showFirstFrame);
+    return () => video.removeEventListener('loadeddata', showFirstFrame);
+  }, [item.src, isVideo]);
 
   const handleClick = (event) => {
     event.preventDefault();
@@ -39,10 +53,11 @@ function CaseMedia({ item, onPreview }) {
         <div className="caseFrame">
           {isVideo ? (
             <video
-              poster={item.poster}
+              ref={videoRef}
+              src={item.src}
               muted
               playsInline
-              preload="none"
+              preload="metadata"
               controlsList="nodownload noplaybackrate"
               disablePictureInPicture
               onContextMenu={(event) => event.preventDefault()}
@@ -66,7 +81,20 @@ function CaseMedia({ item, onPreview }) {
 
 function ProtectedVideo({ item }) {
   const videoRef = useRef(null);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return undefined;
+
+    const showFirstFrame = () => {
+      if (video.currentTime > 0.02) return;
+      video.currentTime = 0.001;
+    };
+
+    video.addEventListener('loadeddata', showFirstFrame);
+    return () => video.removeEventListener('loadeddata', showFirstFrame);
+  }, [item.src]);
 
   const togglePlayback = () => {
     const video = videoRef.current;
@@ -88,8 +116,8 @@ function ProtectedVideo({ item }) {
         ref={videoRef}
         className="lightboxVideo"
         src={item.src}
-        autoPlay
         playsInline
+        preload="metadata"
         controls={false}
         controlsList="nodownload noplaybackrate"
         disablePictureInPicture
